@@ -18,14 +18,14 @@ type Model struct {
 
 func (model Model) IsBooted() (bool, error) {
 
-	devBootCmd := command.New("pwd")
+	devBootCmd := command.New("curl", "http://localhost:3000/Android/CI118/getDate")
 	devBootOut, err := devBootCmd.RunAndReturnTrimmedCombinedOutput()
 	log.Infof(devBootOut)
 	if err != nil {
 		return false, err
 	}
 
-	return strings.Contains(devBootOut, "MockRails"), nil
+	return strings.Contains(devBootOut, "resDate"), nil
 }
 
 func serverBinPth() (string, error) {
@@ -63,6 +63,6 @@ func (model Model) StartServerCommand(options ...string) *command.Model {
 	args = append(args, "-b", "0.0.0.0")
 
 	commandModel := command.New(args[0], args[1:]...).AppendEnvs(model.envs...)
-
+	commandModel.SetDir("mock")
 	return commandModel
 }

@@ -117,11 +117,6 @@ func main() {
 		// Start emulator
 		log.Printf("$ %s", command.PrintableCommandArgs(false, startServerCmd.Args))
 		fmt.Println()
-
-		if err := tools.ChangeDir("mock"); err != nil {
-			failf("no app available error: %s", err)
-		}
-
 		if err := startServerCmd.Run(); err != nil {
 			e <- err
 			return
@@ -159,13 +154,13 @@ func main() {
 	select {
 	case <-time.After(time.Duration(timeout) * time.Second):
 		if err := startServerCmd.Process.Kill(); err != nil {
-			failf("Failed to kill emulator command, error: %s", err)
+			failf("Failed to kill server command, error: %s", err)
 		}
 
 		failf("Start server timed out")
 	case err := <-e:
 		if err != nil {
-			failf("Failed to start emultor, error: %s", err)
+			failf("Failed to start server, error: %s", err)
 		}
 
 	}
