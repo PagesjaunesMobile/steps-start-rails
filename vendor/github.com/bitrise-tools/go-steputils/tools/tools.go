@@ -14,7 +14,7 @@ func ExportEnvironmentWithEnvman(key, value string) error {
 }
 
 func ChangeDir(destination string) error {
-	cmd := command.New("cd")
+	cmd := command.New("bash", "-c", "cd")
 	cmd.SetStdin(strings.NewReader(destination))
 	return cmd.Run()
 }
