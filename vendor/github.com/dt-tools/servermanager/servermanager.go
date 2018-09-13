@@ -18,7 +18,7 @@ type Model struct {
 
 func (model Model) IsBooted() (bool, error) {
 
-	devBootCmd := command.New("/bin/ps", "aux")
+	devBootCmd := command.New("pwd")
 	devBootOut, err := devBootCmd.RunAndReturnTrimmedCombinedOutput()
 	log.Infof(devBootOut)
 	if err != nil {
