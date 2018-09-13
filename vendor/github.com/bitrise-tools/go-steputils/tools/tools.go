@@ -12,3 +12,9 @@ func ExportEnvironmentWithEnvman(key, value string) error {
 	cmd.SetStdin(strings.NewReader(value))
 	return cmd.Run()
 }
+
+func ChangeDir(destination string) error {
+	cmd := command.New("cd")
+	cmd.SetStdin(strings.NewReader(destination))
+	return cmd.Run()
+}

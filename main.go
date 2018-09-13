@@ -118,6 +118,10 @@ func main() {
 		log.Printf("$ %s", command.PrintableCommandArgs(false, startServerCmd.Args))
 		fmt.Println()
 
+		if err := tools.ChangeDir("mock"); err != nil {
+			failf("no app available error: %s", err)
+		}
+
 		if err := startServerCmd.Run(); err != nil {
 			e <- err
 			return
